@@ -1,0 +1,83 @@
+/* reset-modern.css */
+:root {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Box sizing global */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* Retirer marges par défaut */
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+figure,
+blockquote,
+dl,
+dd {
+	margin: 0;
+	padding: 0;
+}
+
+/* Défaut pour body */
+html,
+body {
+	height: 100%;
+	width: 100%;
+	line-height: 1.4;
+	-webkit-text-size-adjust: 100%;
+	font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+	background: #fff;
+	color: #111;
+}
+
+/* Lisibilité des images et médias */
+img,
+picture,
+svg,
+video {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+
+/* Inputs et boutons */
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	margin: 0;
+	padding: 0;
+	background-color: unset;
+	border: unset;
+}
+
+/* Enlever les listes par défaut */
+ul,
+ol {
+	list-style: none;
+	padding: 0;
+}
+
+/* Liens */
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+/* Table */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
