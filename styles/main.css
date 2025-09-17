@@ -1,0 +1,51 @@
+html {
+	font-size: 10px;
+}
+
+body {
+	font-family: "Open Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: normal;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+	max-width: 1280px;
+	margin: 0 auto;
+}
+
+.menu {
+	display: flex;
+	flex-direction: column;
+	max-width: 30rem;
+	padding-bottom: 3rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	border-right: 1px solid #999;
+}
+
+.logo {
+	padding: 2rem 3.5rem;
+	border-bottom: 1px solid #999;
+	align-self: stretch;
+}
+
+.menu__tabs {
+	display: flex;
+	flex-direction: column;
+	gap: 2.4rem;
+	margin: 3rem auto auto;
+}
+
+.menu__tab,
+.logout-btn {
+	display: flex;
+	gap: 2rem;
+	align-items: center;
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+
+.icon {
+}
