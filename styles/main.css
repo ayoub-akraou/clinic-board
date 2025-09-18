@@ -1,5 +1,43 @@
+/* color variables */
+:root {
+	--primary: black;
+	--green: #00df4a;
+}
+
 html {
 	font-size: 10px;
+}
+
+/***********  media queries  ***********/
+
+@media (max-width: 1200px) {
+	html {
+		font-size: 9px;
+	}
+}
+
+@media (max-width: 992px) {
+	html {
+		font-size: 8.5px;
+	}
+}
+
+@media (max-width: 768px) {
+	html {
+		font-size: 8px;
+	}
+}
+
+@media (max-width: 576px) {
+	html {
+		font-size: 7.5px;
+	}
+}
+
+@media (max-width: 400px) {
+	html {
+		font-size: 6.5px;
+	}
 }
 
 body {
