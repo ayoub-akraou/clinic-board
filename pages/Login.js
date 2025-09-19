@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
-		<link rel="stylesheet" href="../styles/reset.css" />
-		<link rel="stylesheet" href="../styles/main.css" />
-		<style>
+export default function Login() {
+	return `	
+	<style>
 			.container {
 				display: flex;
 				width: 100vw;
@@ -71,8 +65,6 @@
 				}
 			}
 		</style>
-	</head>
-	<body>
 		<main class="container">
 			<form class="login">
 				<h1 class="login__title">Welecome To Clinic Board!</h1>
@@ -86,5 +78,5 @@
 				<img src="../assets/images/login-bg.png" alt="medecine materials" />
 			</div>
 		</main>
-	</body>
-</html>
+		`;
+}
