@@ -1,0 +1,128 @@
+import router from "../router.js";
+function AddRendezVousForm() {
+	return `
+   <style>
+   .overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background-color: rgba(0, 0, 0, 0.25);
+				display: none;
+				justify-content: center;
+				align-items: center;
+         	text-align: start !important;
+			}
+
+			.add-rendez-vous-form {
+				padding: 3rem;
+				border-radius: 1rem;
+				background-color: black;
+				color: white;
+				font-size: 1.6rem;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+				max-width: 40rem;
+				width: 100%;
+				position: relative;
+			}
+
+			.add-rendez-vous-form .box {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.add-rendez-vous-form input {
+				font-weight: 400;
+				background-color: white;
+				padding: 0.5rem 1rem;
+				border-radius: 0.6rem;
+			}
+			.add-rendez-vous-form .submit {
+				background-color: var(--green);
+				padding: 0.8rem 1.6rem;
+				border-radius: 0.6rem;
+				font-size: 1.4rem;
+				font-weight: bold;
+				color: white;
+				margin-top: 1.6rem;
+			}
+
+			.btn-close {
+				width: 2.4rem;
+				height: 2.4rem;
+				border-radius: 999px;
+				background-color: white;
+				color: black;
+				font-weight: 500;
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 3rem;
+				rotate: 45deg;
+			}
+		</style>
+   <div class="overlay">
+			<form action="" class="add-rendez-vous-form">
+				<button class="btn-close">+</button>
+				<div class="box">
+					<label for="username">nom complet</label>
+					<input id="username" name="username" type="text" placeholder="nom complet" />
+				</div>
+				<div class="box">
+					<label for="pratitien">pratitien</label>
+					<input id="pratitien" name="pratitien" type="text" placeholder="pratitien" />
+				</div>
+				<div class="box">
+					<label for="salle">salle</label>
+					<input id="salle" name="salle" type="text" placeholder="salle" />
+				</div>
+				<div class="box">
+					<label for="type">type</label>
+					<input id="type" name="type" type="text" placeholder="type" />
+				</div>
+				<div class="box">
+					<label for="duree">durée</label>
+					<input id="duree" name="duree" type="text" placeholder="durée" />
+				</div>
+				<button class="submit">submit</button>
+			</form>
+	</div>`;
+}
+
+function logic() {
+	const addRendezVous = document.querySelector(".add-rendez-vous");
+	const form = document.querySelector(".add-rendez-vous-form");
+	const overlay = form.parentElement;
+	addRendezVous.addEventListener("click", function (e) {
+		e.preventDefault();
+		overlay.style.display = "flex";
+	});
+
+	const closeBtn = document.querySelector(".btn-close");
+	function close(e) {
+		e?.preventDefault();
+		overlay.style.display = "none";
+	}
+	closeBtn.addEventListener("click", close);
+
+	form.addEventListener("submit", function (e) {
+		e.preventDefault();
+		const data = Object.fromEntries(new FormData(form));
+		const oldRendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
+		data.id = new Date().toString();
+		localStorage.setItem("rendez-vous", JSON.stringify([...oldRendezVous, data]));
+		close();
+		router();
+	});
+}
+
+export default () => {
+	setTimeout(logic, 0);
+	return AddRendezVousForm();
+};
