@@ -1,4 +1,12 @@
-export default function Finances() {
+import AddDepenseForm from "../components/AddDepenseForm.js";
+import AddRecetteForm from "../components/AddRecetteForm .js";
+
+function Finances() {
+	const depenses = JSON.parse(localStorage.getItem("depenses")) || [];
+	const depensesAsRows = depensesToHtmlRows(depenses);
+	const recettes = JSON.parse(localStorage.getItem("recettes")) || [];
+	const recettesAsRows = recettesToHtmlRows(recettes);
+
 	return `<style>
 	body {
 		display: flex;
@@ -20,7 +28,7 @@ export default function Finances() {
 		margin-bottom: 1rem;
 	}
 
-	.box {
+	.finances > .box {
 		display: flex;
 		align-items: center;
 		gap: 1rem;
@@ -108,7 +116,7 @@ export default function Finances() {
 	.recettes-list table {
 		width: 100%;
 		text-align: center;
-		font-size: 1.4rem;
+		font-size: 1.2rem;
 		overflow-y: scroll;
 	}
 
@@ -122,7 +130,7 @@ export default function Finances() {
 	}
 </style>
 
-<main class="">
+<main class="finances">
 	<h1 class="title">Finances</h1>
 	<p class="description">Gestion les recettes et les depenses</p>
 	<div class="container">
@@ -139,7 +147,7 @@ export default function Finances() {
 				Ajouter une recette
 			</button>
 			<div class="recettes-list list">
-				<h2 class="recettes-list__title">Liste des recettes (172)</h2>
+				<h2 class="recettes-list__title">Liste des recettes</h2>
 				<div class="table-container">
 					<table>
 						<thead>
@@ -150,61 +158,7 @@ export default function Finances() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
-							<tr>
-								<td style="font-weight: 500">200</td>
-								<td>Especes</td>
-								<td>consultation de suivi</td>
-							</tr>
+						   ${recettesAsRows}
 						</tbody>
 					</table>
 				</div>
@@ -223,7 +177,7 @@ export default function Finances() {
 				Ajouter une recette
 			</button>
 			<div class="depenses-list list">
-				<h2 class="depenses-list__title">Liste des depenses (98)</h2>
+				<h2 class="depenses-list__title">Liste des depenses</h2>
 				<div class="table-container">
 					<table>
 						<thead>
@@ -235,46 +189,47 @@ export default function Finances() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td style="font-weight: 500">350</td>
-								<td>logistique</td>
-								<td>02/03/2025</td>
-								<td>Achat de gants...</td>
-							</tr>
-
-							<tr>
-								<td style="font-weight: 500">350</td>
-								<td>logistique</td>
-								<td>02/03/2025</td>
-								<td>Achat de gants...</td>
-							</tr>
-
-							<tr>
-								<td style="font-weight: 500">350</td>
-								<td>logistique</td>
-								<td>02/03/2025</td>
-								<td>Achat de gants...</td>
-							</tr>
-
-							<tr>
-								<td style="font-weight: 500">350</td>
-								<td>logistique</td>
-								<td>02/03/2025</td>
-								<td>Achat de gants...</td>
-							</tr>
-
-							<tr>
-								<td style="font-weight: 500">350</td>
-								<td>logistique</td>
-								<td>02/03/2025</td>
-								<td>Achat de gants...</td>
-							</tr>
+						${depensesAsRows}
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
+	${AddDepenseForm()}
+	${AddRecetteForm()}
 </main>
 `;
 }
+function recettesToHtmlRows(recettes) {
+	return recettes
+		.map(
+			(recette) => `
+		<tr id="${recette.id}">
+			<td>${recette.montant}</td>
+			<td>${recette["methode-de-paiment"]}</td>
+			<td>${recette.libelle}</td>
+		</tr>`
+		)
+		.join("");
+}
+function depensesToHtmlRows(depenses) {
+	return depenses
+		.map(
+			(depense) => `
+		<tr id="${depense.id}">
+			<td>${depense.montant}</td>
+			<td>${depense.categorie}</td>
+			<td>${depense.date}</td>
+			<td>${depense.libelle}</td>
+		</tr>`
+		)
+		.join("");
+}
+
+function logic() {}
+
+export default () => {
+	setTimeout(logic, 0);
+	return Finances();
+};
