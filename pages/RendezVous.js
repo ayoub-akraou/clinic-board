@@ -1,5 +1,6 @@
 import router from "../router.js";
 import AddRendezVousForm from "../components/AddRendezVousForm.js";
+import UpdateRendezVousForm from "../components/UpdateRendezVousForm.js";
 function RendezVous() {
 	const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
 
@@ -115,7 +116,7 @@ function RendezVous() {
 						type="text"
 						name=""
 						id=""
-						placeholder="Rechercher un rendez-vous..." />
+						placeholder="Rechercher un rendezVous..." />
 				</form>
 				<button class="add-rendez-vous">
 					<svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -135,7 +136,7 @@ function RendezVous() {
 					<table>
 						<thead>
 							<tr>
-								<th>patient</th>
+								<th>rendez-vous</th>
 								<th>pratitien</th>
 								<th>salle</th>
 								<th>type</th>
@@ -153,6 +154,7 @@ function RendezVous() {
 				</div>
 			</div>
 			${AddRendezVousForm()}
+			${UpdateRendezVousForm()}
 	  `;
 }
 function logic() {
@@ -164,13 +166,55 @@ function logic() {
 				const id = btn.dataset.id;
 				console.log(btn, id);
 				const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
-				const newRendezVous = rendezVous.filter((patient) => patient.id != id);
+				const newRendezVous = rendezVous.filter((rv) => rv.id != id);
 				localStorage.setItem("rendez-vous", JSON.stringify(newRendezVous));
 				router();
 			})
 		);
 	}
 	attachClickListenerToDeleteBtns();
+
+	// update rendez-vous functionality
+	const updateRendezVousForm = document.querySelector(".update-rendez-vous-form");
+	const overlay = updateRendezVousForm.parentElement;
+
+	// open update form with the proper rendez-vous data
+	function attachClickListenerToEditBtns() {
+		const editBtns = document.querySelectorAll(".rendez-vous .edit");
+		editBtns.forEach((btn) =>
+			btn.addEventListener("click", function (e) {
+				overlay.style.display = "flex";
+				const id = btn.dataset.id;
+				const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
+				const rv = rendezVous.find((rendezVous) => rendezVous.id == id);
+				updateRendezVousForm.querySelector("#username").value = rv.username;
+				updateRendezVousForm.querySelector("#pratitien").value = rv.pratitien;
+				updateRendezVousForm.querySelector("#salle").value = rv.salle;
+				updateRendezVousForm.querySelector("#type").value = rv.type;
+				updateRendezVousForm.querySelector("#duree").value = rv.duree;
+				updateRendezVousForm.id = rv.id;
+			})
+		);
+	}
+	attachClickListenerToEditBtns();
+
+	// update rendez-vous on submit
+	updateRendezVousForm.addEventListener("submit", function (e) {
+		e.preventDefault();
+		const data = Object.fromEntries(new FormData(updateRendezVousForm));
+		data.id = updateRendezVousForm.id;
+		const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
+
+		const rv = rendezVous.find((rv) => rv.id == data.id);
+		rv.username = data.username;
+		rv.pratitien = data.pratitien;
+		rv.salle = data.salle;
+		rv.type = data.type;
+		rv.duree = data.duree;
+
+		localStorage.setItem("rendez-vous", JSON.stringify(rendezVous));
+		router();
+	});
 }
 
 function toHtmlRows(rendezVous) {
