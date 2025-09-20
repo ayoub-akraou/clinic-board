@@ -46,6 +46,14 @@ html {
 	}
 }
 
+input {
+	outline: none;
+}
+
+button {
+	cursor: pointer;
+}
+
 body {
 	font-family: "Open Sans", sans-serif;
 	font-optical-sizing: auto;
@@ -58,6 +66,7 @@ body {
 	width: 100vw;
 	min-height: 100vh;
 	display: flex;
+	/* background-color: #aaa; */
 }
 
 .menu {
