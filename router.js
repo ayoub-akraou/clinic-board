@@ -10,18 +10,18 @@ import Register from "./pages/Register.js";
 const root = document.getElementById("root");
 
 const routes = {
-	"/": TableauDeBord(),
-	"/patients": Patients(),
-	"/rendez-vous": RendezVous(),
-	"/finances": Finances(),
-	"/login": Login(),
-	"/register": Register(),
+	"/": TableauDeBord,
+	"/patients": Patients,
+	"/rendez-vous": RendezVous,
+	"/finances": Finances,
+	"/login": Login,
+	"/register": Register,
 };
 
 function router() {
 	const path = location.pathname;
 
-	const page = routes[path] ? routes[path] : routes["/"];
+	const page = routes[path] ? routes[path]() : routes["/"]();
 
 	root.innerHTML = DashboardLayout(page);
 	attachClickListener();
