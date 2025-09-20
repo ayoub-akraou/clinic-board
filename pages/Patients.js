@@ -1,3 +1,5 @@
+import AddPatientForm from "../components/AddPatientForm.js";
+function Patients() {
 	const patients = JSON.parse(localStorage.getItem("patients")) || [];
 
 	const patientsAsRows = patients
@@ -166,6 +168,7 @@
 					</table>
 				</div>
 			</div>
+			${AddPatientForm()}
 </main>
 `;
 }
