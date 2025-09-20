@@ -1,3 +1,4 @@
+"use strict";
 import DashboardLayout from "./layouts/DashboardLayout.js";
 import TableauDeBord from "./pages/TableauDeBord.js";
 import Patients from "./pages/Patients.js";
