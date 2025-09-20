@@ -1,4 +1,8 @@
-export default function RendezVous() {
+import AddRendezVousForm from "../components/AddRendezVousForm.js";
+function RendezVous() {
+	const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
+
+	const rendezVousAsRows = toHtmlRows(rendezVous);
 	return `
 		<style>
 			body {
@@ -21,7 +25,7 @@ export default function RendezVous() {
 				margin-bottom: 1rem;
 			}
 
-			.box {
+			.rendez-vous > .box {
 				display: flex;
 				align-items: center;
 				gap: 1rem;
@@ -101,7 +105,7 @@ export default function RendezVous() {
 			}
 		</style>
 		
-		<main class="">
+		<main class="rendez-vous">
 			<h1 class="title">rendez-vous</h1>
 			<p class="description">Gestion des rendez-vous</p>
 			<div class="box">
@@ -139,129 +143,40 @@ export default function RendezVous() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
-							<tr>
-								<td>karim alaoui</td>
-								<td>Dr. hakim saoudi</td>
-								<td>24</td>
-								<td>type1</td>
-								<td>3 jours</td>
-								<td class="actions">
-									<button class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-									<button class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-									<button class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
-								</td>
-							</tr>
+						${
+							rendezVousAsRows ||
+							"<tr><td colspan='5' style='padding: 2rem; font-size: 2rem; font-weight: bold; font-style: italic;'>aucun render-vous trouvé</td></tr>"
+						}
 						</tbody>
 					</table>
 				</div>
 			</div>
+			${AddRendezVousForm()}
 	  `;
 }
+function logic() {}
+
+function toHtmlRows(rendezVous) {
+	return rendezVous
+		.map(
+			(rv) => `
+		<tr id=${rv.id}>
+			<td>${rv.username}</td>
+			<td>${rv.pratitien}</td>
+			<td>${rv.salle}</td>
+			<td>${rv.type}</td>
+			<td>${rv.duree}</td>
+			<td class="actions">
+				<button dataset-id=${rv.id} class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
+				<button dataset-id=${rv.id} class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
+				<button dataset-id=${rv.id} class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
+			</td>
+		</tr>`
+		)
+		.join("");
+}
+
+export default () => {
+	setTimeout(logic, 0);
+	return RendezVous();
+};
