@@ -131,7 +131,7 @@ function RendezVous() {
 				</button>
 			</div>
 			<div class="rendez-vous-list">
-				<h2 class="rendez-vous-list__title">Liste des rendez-vous (172)</h2>
+				<h2 class="rendez-vous-list__title">Liste des rendez-vous</h2>
 				<div class="table-container">
 					<table>
 						<thead>

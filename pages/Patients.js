@@ -13,7 +13,7 @@ function Patients() {
 			}
 
 			main {
-				padding: min(10px + 4vw, 8rem);
+				padding: min(10px + 2vw, 6rem) min(10px + 4vw, 8rem);
 				flex: 1;
 			}
 
@@ -130,7 +130,7 @@ function Patients() {
 				</button>
 			</div>
 			<div class="patients-list">
-				<h2 class="patients-list__title">Liste des patients (172)</h2>
+				<h2 class="patients-list__title">Liste des patients</h2>
 				<div class="table-container">
 					<table>
 						<thead>
