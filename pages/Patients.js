@@ -45,7 +45,7 @@ function Patients() {
 				margin-bottom: 1rem;
 			}
 
-			.box {
+			.patients > .box {
 				display: flex;
 				align-items: center;
 				gap: 1rem;
