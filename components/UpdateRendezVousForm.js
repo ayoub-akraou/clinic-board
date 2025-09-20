@@ -1,5 +1,5 @@
 import router from "../router.js";
-function AddPatientForm() {
+function UpdateRendezVousForm() {
 	return `
    <style>
    .overlay {
@@ -15,7 +15,7 @@ function AddPatientForm() {
          	text-align: start !important;
 			}
 
-			.add-patient-form {
+			.update-rendez-vous-form {
 				padding: 3rem;
 				border-radius: 1rem;
 				background-color: black;
@@ -29,18 +29,18 @@ function AddPatientForm() {
 				position: relative;
 			}
 
-			.add-patient-form .box {
+			.update-rendez-vous-form .box {
 				display: flex;
 				flex-direction: column;
 			}
 
-			.add-patient-form input {
+			.update-rendez-vous-form input {
 				font-weight: 400;
 				background-color: white;
 				padding: 0.5rem 1rem;
 				border-radius: 0.6rem;
 			}
-			.add-patient-form .submit {
+			.update-rendez-vous-form .submit {
 				background-color: var(--green);
 				padding: 0.8rem 1.6rem;
 				border-radius: 0.6rem;
@@ -68,53 +68,44 @@ function AddPatientForm() {
 			}
 		</style>
    <div class="overlay">
-			<form action="" class="add-patient-form">
+			<form action="" class="update-rendez-vous-form">
 				<button class="btn-close">+</button>
 				<div class="box">
 					<label for="username">nom complet</label>
 					<input id="username" name="username" type="text" placeholder="nom complet" required/>
 				</div>
 				<div class="box">
-					<label for="telephone">telephone</label>
-					<input id="telephone" name="telephone" type="text" placeholder="telephone" required/>
+					<label for="pratitien">pratitien</label>
+					<input id="pratitien" name="pratitien" type="text" placeholder="pratitien" required/>
 				</div>
 				<div class="box">
-					<label for="email">email</label>
-					<input id="email" name="email" type="text" placeholder="email" required/>
+					<label for="salle">salle</label>
+					<input id="salle" name="salle" type="text" placeholder="salle" required/>
 				</div>
-				<button class="submit">submit</button>
+				<div class="box">
+					<label for="type">type</label>
+					<input id="type" name="type" type="text" placeholder="type" required/>
+				</div>
+				<div class="box">
+					<label for="duree">durée</label>
+					<input id="duree" name="duree" type="text" placeholder="durée" required/>
+				</div>
+				<button class="submit">update</button>
 			</form>
 	</div>`;
 }
 
 function logic() {
-	const addPatient = document.querySelector(".add-patient");
-	const form = document.querySelector(".add-patient-form");
-	const overlay = form.parentElement;
-	addPatient.addEventListener("click", function (e) {
-		e.preventDefault();
-		overlay.style.display = "flex";
-	});
-
-	const closeBtn = document.querySelector(".btn-close");
+	const overlay = document.querySelector(".update-rendez-vous-form").parentElement;
+	const closeBtn = overlay.querySelector(".btn-close");
 	function close(e) {
 		e?.preventDefault();
 		overlay.style.display = "none";
 	}
 	closeBtn.addEventListener("click", close);
-
-	form.addEventListener("submit", function (e) {
-		e.preventDefault();
-		const data = Object.fromEntries(new FormData(form));
-		const oldPatients = JSON.parse(localStorage.getItem("patients")) || [];
-		data.id = new Date().toString();
-		localStorage.setItem("patients", JSON.stringify([...oldPatients, data]));
-		close();
-		router();
-	});
 }
 
 export default () => {
 	setTimeout(logic, 0);
-	return AddPatientForm();
+	return UpdateRendezVousForm();
 };

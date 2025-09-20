@@ -72,15 +72,15 @@ function UpdatePatientForm() {
 				<button class="btn-close">+</button>
 				<div class="box">
 					<label for="username">nom complet</label>
-					<input id="username" name="username" type="text" placeholder="nom complet" />
+					<input id="username" name="username" type="text" placeholder="nom complet" required/>
 				</div>
 				<div class="box">
 					<label for="telephone">telephone</label>
-					<input id="telephone" name="telephone" type="text" placeholder="telephone" />
+					<input id="telephone" name="telephone" type="text" placeholder="telephone" required/>
 				</div>
 				<div class="box">
 					<label for="email">email</label>
-					<input id="email" name="email" type="text" placeholder="email" />
+					<input id="email" name="email" type="text" placeholder="email" required/>
 				</div>
 				<button class="submit">update</button>
 			</form>

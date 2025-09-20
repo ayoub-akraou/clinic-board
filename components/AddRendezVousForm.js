@@ -72,23 +72,23 @@ function AddRendezVousForm() {
 				<button class="btn-close">+</button>
 				<div class="box">
 					<label for="username">nom complet</label>
-					<input id="username" name="username" type="text" placeholder="nom complet" />
+					<input id="username" name="username" type="text" placeholder="nom complet" required />
 				</div>
 				<div class="box">
 					<label for="pratitien">pratitien</label>
-					<input id="pratitien" name="pratitien" type="text" placeholder="pratitien" />
+					<input id="pratitien" name="pratitien" type="text" placeholder="pratitien" required />
 				</div>
 				<div class="box">
 					<label for="salle">salle</label>
-					<input id="salle" name="salle" type="text" placeholder="salle" />
+					<input id="salle" name="salle" type="text" placeholder="salle" required />
 				</div>
 				<div class="box">
 					<label for="type">type</label>
-					<input id="type" name="type" type="text" placeholder="type" />
+					<input id="type" name="type" type="text" placeholder="type" required />
 				</div>
 				<div class="box">
 					<label for="duree">durée</label>
-					<input id="duree" name="duree" type="text" placeholder="durée" />
+					<input id="duree" name="duree" type="text" placeholder="durée" required />
 				</div>
 				<button class="submit">submit</button>
 			</form>
