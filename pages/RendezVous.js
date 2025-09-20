@@ -1,3 +1,4 @@
+import router from "../router.js";
 import AddRendezVousForm from "../components/AddRendezVousForm.js";
 function RendezVous() {
 	const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
@@ -154,22 +155,38 @@ function RendezVous() {
 			${AddRendezVousForm()}
 	  `;
 }
-function logic() {}
+function logic() {
+	// delete rendez-vous functionality
+	function attachClickListenerToDeleteBtns() {
+		const deleteBtns = document.querySelectorAll(".rendez-vous .delete");
+		deleteBtns.forEach((btn) =>
+			btn.addEventListener("click", function (e) {
+				const id = btn.dataset.id;
+				console.log(btn, id);
+				const rendezVous = JSON.parse(localStorage.getItem("rendez-vous")) || [];
+				const newRendezVous = rendezVous.filter((patient) => patient.id != id);
+				localStorage.setItem("rendez-vous", JSON.stringify(newRendezVous));
+				router();
+			})
+		);
+	}
+	attachClickListenerToDeleteBtns();
+}
 
 function toHtmlRows(rendezVous) {
 	return rendezVous
 		.map(
 			(rv) => `
-		<tr id=${rv.id}>
+		<tr id="${rv.id}">
 			<td>${rv.username}</td>
 			<td>${rv.pratitien}</td>
 			<td>${rv.salle}</td>
 			<td>${rv.type}</td>
 			<td>${rv.duree}</td>
 			<td class="actions">
-				<button dataset-id=${rv.id} class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
-				<button dataset-id=${rv.id} class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
-				<button dataset-id=${rv.id} class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
+				<button data-id="${rv.id}" class="view"><img src="../assets/icons/eye.png" alt="eye icon" /></button>
+				<button data-id="${rv.id}" class="edit"><img src="../assets/icons/edit.png" alt="edit icon" /></button>
+				<button data-id="${rv.id}" class="delete"><img src="../assets/icons/delete.png" alt="delete icon" /></button>
 			</td>
 		</tr>`
 		)
