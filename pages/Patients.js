@@ -172,3 +172,17 @@ function Patients() {
 </main>
 `;
 }
+
+function PatientsLogic() {
+	// delete patient functionality
+	const deleteBtns = document.querySelectorAll(".patients .delete");
+	deleteBtns.forEach((btn) =>
+		btn.addEventListener("click", function (e) {
+			const id = btn.dataset.id;
+			const patients = JSON.parse(localStorage.getItem("patients")) || [];
+			const newPatients = patients.filter((patient) => patient.id != id);
+			localStorage.setItem("patients", JSON.stringify(newPatients));
+			router();
+		})
+	);
+
