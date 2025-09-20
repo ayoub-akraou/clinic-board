@@ -1,4 +1,6 @@
 import AddPatientForm from "../components/AddPatientForm.js";
+import UpdatePatientForm from "../components/UpdatePatientForm.js";
+import router from "../router.js";
 function Patients() {
 	const patients = JSON.parse(localStorage.getItem("patients")) || [];
 
@@ -124,7 +126,7 @@ function Patients() {
 			.delete {
 			}
 </style>
-<main class="">
+<main class="patients">
 			<h1 class="title">Patients</h1>
 			<p class="description">Gestion des patients du cabinet</p>
 			<div class="box">
@@ -169,6 +171,7 @@ function Patients() {
 				</div>
 			</div>
 			${AddPatientForm()}
+			${UpdatePatientForm()}
 </main>
 `;
 }
@@ -186,3 +189,41 @@ function PatientsLogic() {
 		})
 	);
 
+	// update patient functionality
+	const editBtns = document.querySelectorAll(".patients .edit");
+	const updatePatientForm = document.querySelector(".update-patient-form");
+	const overlay = updatePatientForm.parentElement;
+	// open update form with the proper patient data
+	editBtns.forEach((btn) =>
+		btn.addEventListener("click", function (e) {
+			overlay.style.display = "flex";
+			const id = btn.dataset.id;
+			const patients = JSON.parse(localStorage.getItem("patients")) || [];
+			const patient = patients.find((patient) => patient.id == id);
+			updatePatientForm.querySelector("#username").value = patient.username;
+			updatePatientForm.querySelector("#telephone").value = patient.telephone;
+			updatePatientForm.querySelector("#email").value = patient.email;
+			updatePatientForm.id = patient.id;
+		})
+	);
+	// update patient on submit
+	updatePatientForm.addEventListener("submit", function (e) {
+		e.preventDefault();
+		const data = Object.fromEntries(new FormData(updatePatientForm));
+		data.id = updatePatientForm.id;
+		const patients = JSON.parse(localStorage.getItem("patients")) || [];
+
+		const patient = patients.find((p) => p.id == data.id);
+		patient.username = data.username;
+		patient.telephone = data.telephone;
+		patient.email = data.email;
+
+		localStorage.setItem("patients", JSON.stringify(patients));
+		router();
+	});
+}
+
+export default () => {
+	setTimeout(PatientsLogic, 0);
+	return Patients();
+};
