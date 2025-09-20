@@ -141,7 +141,7 @@ function Patients() {
 								<th></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="patients-list">
 							${
 								patientsAsRows ||
 								"<tr><td colspan='3' style='padding: 2rem; font-size: 2rem; font-weight: bold; font-style: italic;'>aucun patient trouvé</td></tr>"
@@ -152,40 +152,46 @@ function Patients() {
 			</div>
 			${AddPatientForm()}
 			${UpdatePatientForm()}
-</main>
-`;
+			</main>
+			`;
 }
 
 function PatientsLogic() {
 	// delete patient functionality
-	const deleteBtns = document.querySelectorAll(".patients .delete");
-	deleteBtns.forEach((btn) =>
-		btn.addEventListener("click", function (e) {
-			const id = btn.dataset.id;
-			const patients = JSON.parse(localStorage.getItem("patients")) || [];
-			const newPatients = patients.filter((patient) => patient.id != id);
-			localStorage.setItem("patients", JSON.stringify(newPatients));
-			router();
-		})
-	);
+	function attachClickListenerToDeleteBtns() {
+		const deleteBtns = document.querySelectorAll(".patients .delete");
+		deleteBtns.forEach((btn) =>
+			btn.addEventListener("click", function (e) {
+				const id = btn.dataset.id;
+				const patients = JSON.parse(localStorage.getItem("patients")) || [];
+				const newPatients = patients.filter((patient) => patient.id != id);
+				localStorage.setItem("patients", JSON.stringify(newPatients));
+				router();
+			})
+		);
+	}
+	attachClickListenerToDeleteBtns();
 
 	// update patient functionality
-	const editBtns = document.querySelectorAll(".patients .edit");
 	const updatePatientForm = document.querySelector(".update-patient-form");
 	const overlay = updatePatientForm.parentElement;
 	// open update form with the proper patient data
-	editBtns.forEach((btn) =>
-		btn.addEventListener("click", function (e) {
-			overlay.style.display = "flex";
-			const id = btn.dataset.id;
-			const patients = JSON.parse(localStorage.getItem("patients")) || [];
-			const patient = patients.find((patient) => patient.id == id);
-			updatePatientForm.querySelector("#username").value = patient.username;
-			updatePatientForm.querySelector("#telephone").value = patient.telephone;
-			updatePatientForm.querySelector("#email").value = patient.email;
-			updatePatientForm.id = patient.id;
-		})
-	);
+	function attachClickListenerToEditBtns() {
+		const editBtns = document.querySelectorAll(".patients .edit");
+		editBtns.forEach((btn) =>
+			btn.addEventListener("click", function (e) {
+				overlay.style.display = "flex";
+				const id = btn.dataset.id;
+				const patients = JSON.parse(localStorage.getItem("patients")) || [];
+				const patient = patients.find((patient) => patient.id == id);
+				updatePatientForm.querySelector("#username").value = patient.username;
+				updatePatientForm.querySelector("#telephone").value = patient.telephone;
+				updatePatientForm.querySelector("#email").value = patient.email;
+				updatePatientForm.id = patient.id;
+			})
+		);
+	}
+	attachClickListenerToEditBtns();
 	// update patient on submit
 	updatePatientForm.addEventListener("submit", function (e) {
 		e.preventDefault();
@@ -201,6 +207,24 @@ function PatientsLogic() {
 		localStorage.setItem("patients", JSON.stringify(patients));
 		router();
 	});
+
+	// search functinnality
+	const patientsContainer = document.querySelector("#patients-list");
+	const searchBar = document.querySelector(".search-bar input");
+
+	searchBar.addEventListener("input", function (e) {
+		const patients = JSON.parse(localStorage.getItem("patients")) || [];
+		const query = searchBar.value;
+		const searchedPatients = patients.filter(
+			(patient) => patient.username.includes(query) || patient.email.includes(query)
+		);
+		patientsContainer.innerHTML = searchedPatients.length
+			? toHtmlRows(searchedPatients)
+			: "<tr><td colspan='3' style='padding: 2rem; font-size: 2rem; font-weight: bold; font-style: italic;'>aucun patient trouvé</td></tr>";
+	});
+	attachClickListenerToDeleteBtns();
+	attachClickListenerToEditBtns();
+}
 
 function toHtmlRows(patients) {
 	return patients
