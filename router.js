@@ -18,7 +18,7 @@ const routes = {
 	"/register": Register,
 };
 
-function router() {
+export default function router() {
 	const path = location.pathname;
 
 	const page = routes[path] ? routes[path]() : routes["/"]();
@@ -29,7 +29,6 @@ function router() {
 router();
 function navigateTo(e) {
 	const path = e.currentTarget.dataset.path;
-	console.log(e.currentTarget);
 	history.pushState(null, null, path);
 	router();
 }
@@ -40,8 +39,6 @@ function attachClickListener() {
 	const menuTabs = document.querySelectorAll(".menu__tab");
 	menuTabs.forEach((tab) => {
 		tab.addEventListener("click", navigateTo);
-
-		console.log(tab);
 	});
 }
 
