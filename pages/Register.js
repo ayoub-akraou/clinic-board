@@ -55,19 +55,29 @@ function Register() {
 		font-weight: bold;
 		color: white;
 	}
+		#message {
+				color: red;
+				background-color: rgba(255, 178, 178, 1);
+				font-weight: 600;
+				font-size: 1.6rem;
+				padding: .5rem 1rem;
+				text-align: center;
+				display: none;
+			}
 </style>
 <form action="" class="register">
 	<h1 class="register__title">Welecome To Clinic Board!</h1>
 	<div class="box">
 		<p class="register__guide">Set your username and password</p>
-		<input type="text" name="username" id="username" class="register__username" placeholder="username" />
-		<input type="text" name="password" id="password" class="register__password" placeholder="password" />
+		<input type="text" name="username" id="username" class="register__username" placeholder="username"  required/>
+		<input type="password" name="password" id="password" class="register__password" placeholder="password"  required/>
 		<input
-			type="text"
+			type="password"
 			name="confirm-password"
 			id="confirm-password"
 			class="register__confirm-password"
-			placeholder="confirm password" />
+			placeholder="confirm password" required/>
+			<p id="message"></p>
 	</div>
 	<button class="register__submit">Submit</button>
 </form>
@@ -87,6 +97,12 @@ function logic() {
 			localStorage.setItem("user", JSON.stringify({ username: username.value, password: hashedPassword }));
 			localStorage.setItem("isRegistred", JSON.stringify(true));
 			router();
+		} else {
+			console.log("wrong");
+
+			const message = document.getElementById("message");
+			message.textContent = "something went wrong!";
+			message.style.display = "block";
 		}
 	});
 }

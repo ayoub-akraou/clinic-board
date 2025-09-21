@@ -67,13 +67,24 @@ function Login() {
 					display: none;
 				}
 			}
+
+			#message {
+				color: red;
+				background-color: rgba(255, 178, 178, 1);
+				font-weight: 600;
+				font-size: 1.6rem;
+				padding: .5rem 1rem;
+				text-align: center;
+				display: none;
+			}
 		</style>
 		<main class="container">
 			<form class="login">
 				<h1 class="login__title">Welecome To Clinic Board!</h1>
 				<div class="box">
-					<input type="text" name="password" id="username" placeholder="username" />
-					<input type="text" name="password" id="password" placeholder="password" />
+					<input type="text" name="password" id="username" placeholder="username"  required/>
+					<input type="password" name="password" id="password" placeholder="password"  required/>
+					<p id="message"></p>
 					<button class="login__submit">Submit</button>
 				</div>
 			</form>
@@ -97,6 +108,10 @@ function logic() {
 			localStorage.setItem("isLoggedIn", JSON.stringify(true));
 			history.pushState(null, null, "/");
 			router();
+		} else {
+			const message = document.getElementById("message");
+			message.textContent = "Incorrect username or password!";
+			message.style.display = "block";
 		}
 	});
 }
