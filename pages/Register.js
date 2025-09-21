@@ -1,4 +1,7 @@
-export default function Register() {
+import router from "../router.js";
+import { hashPassword } from "../utilities.js";
+
+function Register() {
 	return `
 <style>
 	body {
@@ -70,3 +73,25 @@ export default function Register() {
 </form>
 `;
 }
+
+function logic() {
+	const form = document.querySelector(".register");
+	const username = document.querySelector("#username");
+	const password = document.querySelector("#password");
+	const confirmPassword = document.querySelector("#confirm-password");
+
+	form.addEventListener("submit", async function (e) {
+		e.preventDefault();
+		if (username.value.trim() && password.value.trim() && password.value === confirmPassword.value) {
+			const hashedPassword = await hashPassword(password.value);
+			localStorage.setItem("user", JSON.stringify({ username: username.value, password: hashPassword }));
+			localStorage.setItem("isRegistred", JSON.stringify(true));
+			router();
+		}
+	});
+}
+
+export default () => {
+	setTimeout(logic, 0);
+	return Register();
+};
