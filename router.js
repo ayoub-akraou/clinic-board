@@ -23,7 +23,16 @@ export default function router() {
 
 	const page = routes[path] ? routes[path]() : routes["/"]();
 
-	root.innerHTML = DashboardLayout(page);
+	if (JSON.parse(localStorage.getItem("isRegistred"))) {
+		if (localStorage.getItem("isLoggedIn")) root.innerHTML = DashboardLayout(page);
+		else {
+			history.pushState(null, null, "/login");
+			root.innerHTML = Login();
+		}
+	} else {
+		history.pushState(null, null, "/register");
+		root.innerHTML = Register();
+	}
 	attachClickListener();
 }
 router();
