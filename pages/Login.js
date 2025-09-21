@@ -77,6 +77,20 @@ function Login() {
 				text-align: center;
 				display: none;
 			}
+
+		.layer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			display: none;
+			justify-content: center;
+			align-items: center;
+			font-size: 6rem;
+			background-color: #00000075;
+			color: #fff;
+		}
 		</style>
 		<main class="container">
 			<form class="login">
@@ -92,6 +106,7 @@ function Login() {
 				<img src="../assets/images/login-bg.png" alt="medecine materials" />
 			</div>
 		</main>
+		<div class="layer"></div>
 		`;
 }
 
@@ -99,7 +114,8 @@ function logic() {
 	const form = document.querySelector(".login");
 	const username = document.querySelector("#username");
 	const password = document.querySelector("#password");
-	console.log(form);
+
+	let counter = 0;
 
 	form.addEventListener("submit", async function (e) {
 		e.preventDefault();
@@ -112,6 +128,22 @@ function logic() {
 			const message = document.getElementById("message");
 			message.textContent = "Incorrect username or password!";
 			message.style.display = "block";
+			counter++;
+			if (counter === 3) {
+				counter = 0;
+				let timer = 5;
+				const layer = document.querySelector(".layer");
+				layer.style.display = "flex";
+				layer.textContent = timer--;
+				const interval = setInterval(() => {
+					layer.textContent = timer--;
+					if (timer < 0) {
+						clearInterval(interval);
+						layer.style.display = "none";
+						timer = 5;
+					}
+				}, 1000);
+			}
 		}
 	});
 }
