@@ -1,4 +1,13 @@
+import router from "../router.js";
 export default function DashboardLayout(outlet) {
+	setTimeout(() => {
+		const logoutBtn = document.querySelector(".logout-btn");
+		console.log(logoutBtn);
+		logoutBtn.addEventListener("click", () => {
+			localStorage.removeItem("isLoggedIn");
+			router();
+		});
+	}, 0);
 	return `
    	<aside class="menu">
 			<div class="logo"><img src="../assets/images/logo.svg" alt="logo" /></div>
