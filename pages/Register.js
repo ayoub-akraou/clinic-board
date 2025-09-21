@@ -84,7 +84,7 @@ function logic() {
 		e.preventDefault();
 		if (username.value.trim() && password.value.trim() && password.value === confirmPassword.value) {
 			const hashedPassword = await hashPassword(password.value);
-			localStorage.setItem("user", JSON.stringify({ username: username.value, password: hashPassword }));
+			localStorage.setItem("user", JSON.stringify({ username: username.value, password: hashedPassword }));
 			localStorage.setItem("isRegistred", JSON.stringify(true));
 			router();
 		}
