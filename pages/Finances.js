@@ -174,7 +174,7 @@ function Finances() {
 						stroke-linecap="round"
 						stroke-linejoin="round" />
 				</svg>
-				Ajouter une recette
+				Ajouter une depense
 			</button>
 			<div class="depenses-list list">
 				<h2 class="depenses-list__title">Liste des depenses</h2>
