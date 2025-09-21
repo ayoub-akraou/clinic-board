@@ -1,4 +1,19 @@
 export default function TableauDeBord() {
+	const recetteMensuelle = JSON.parse(localStorage.getItem("recettes") || []).reduce(
+		(acc, cur) => acc + +cur.montant,
+		0
+	);
+	const depenseMensuelle = JSON.parse(localStorage.getItem("depenses") || []).reduce(
+		(acc, cur) => acc + +cur.montant,
+		0
+	);
+	const margeMensuelle = recetteMensuelle - depenseMensuelle;
+	const patients = JSON.parse(localStorage.getItem("patients"))?.length || 0;
+	const rendezVous = JSON.parse(localStorage.getItem("rendez-vous"))?.length || 0;
+
+	const target = 15_000;
+	const percentage = ((margeMensuelle / target) * 100).toFixed(2);
+
 	return `<style>
 	body {
 		display: flex;
@@ -16,7 +31,7 @@ export default function TableauDeBord() {
 
 	.container {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 		gap: 2rem;
 	}
 
@@ -27,6 +42,7 @@ export default function TableauDeBord() {
 		padding: 1rem 2rem;
 		border: 1px solid #ccc;
 		border-radius: 1rem;
+		min-width: fit-content;
 	}
 
 	.card__title {
@@ -102,7 +118,7 @@ export default function TableauDeBord() {
 		left: 0;
 		top: 0;
 		height: 100%;
-		width: 50%;
+		width: ${percentage}%;
 		background-color: var(--green);
 		border-radius: 1rem;
 	}
@@ -115,7 +131,7 @@ export default function TableauDeBord() {
 				<h2 class="card__title">Recettes Mensuel</h2>
 				<div class="card__icon"><img src="../assets/icons/take-money.png" alt="money icon" /></div>
 			</div>
-			<p class="total text-green">0 MAD</p>
+			<p class="total text-green">${recetteMensuelle} MAD</p>
 			<div class="desc">Recettes du mois en cours</div>
 		</div>
 		<div class="card">
@@ -125,7 +141,7 @@ export default function TableauDeBord() {
 					<img src="../assets/icons/payment-history.png" alt="payment history icon" />
 				</div>
 			</div>
-			<p class="total text-red">0 MAD</p>
+			<p class="total text-red">${depenseMensuelle} MAD</p>
 			<div class="desc">Depenses du mois en cours</div>
 		</div>
 		<div class="card">
@@ -133,7 +149,7 @@ export default function TableauDeBord() {
 				<h2 class="card__title">Marge</h2>
 				<div class="card__icon"><img src="../assets/icons/take-money.png" alt="money icon" /></div>
 			</div>
-			<p class="total text-green">0 MAD</p>
+			<p class="total text-green">${margeMensuelle} MAD</p>
 			<div class="desc">marge du mois en cours</div>
 		</div>
 		<div class="card">
@@ -141,7 +157,7 @@ export default function TableauDeBord() {
 				<h2 class="card__title">Patients</h2>
 				<div class="card__icon"><img src="../assets/icons/patient.png" alt="patient icon" /></div>
 			</div>
-			<p class="total">281</p>
+			<p class="total">${patients}</p>
 			<div class="desc">Patients enregistrés</div>
 		</div>
 		<div class="card">
@@ -149,17 +165,17 @@ export default function TableauDeBord() {
 				<h2 class="card__title">Rendez vous</h2>
 				<div class="card__icon"><img src="../assets/icons/calender.png" alt="calender icon" /></div>
 			</div>
-			<p class="total text-green">108</p>
+			<p class="total text-green">${rendezVous}</p>
 			<div class="desc">Rendez vous enregistrés</div>
 		</div>
 	</div>
 	<hr />
 	<div class="card-progress">
 		<h2 class="card__title">Objectif Mensuel</h2>
-		<p class="card-progress__description">Progression vers l'objectif de 15 000 $</p>
+		<p class="card-progress__description">Progression vers l'objectif de ${target} MAD</p>
 		<div class="box">
-			<p class="">Réalisé: 7500 $</p>
-			<p class="percentage">50%</p>
+			<p class="">Réalisé: ${margeMensuelle} MAD</p>
+			<p class="percentage">${percentage}%</p>
 		</div>
 		<div class="progress"></div>
 	</div>
