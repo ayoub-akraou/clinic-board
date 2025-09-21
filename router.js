@@ -14,8 +14,6 @@ const routes = {
 	"/patients": Patients,
 	"/rendez-vous": RendezVous,
 	"/finances": Finances,
-	"/login": Login,
-	"/register": Register,
 };
 
 export default function router() {
@@ -24,7 +22,7 @@ export default function router() {
 	const page = routes[path] ? routes[path]() : routes["/"]();
 
 	if (JSON.parse(localStorage.getItem("isRegistred"))) {
-		if (localStorage.getItem("isLoggedIn")) root.innerHTML = DashboardLayout(page);
+		if (JSON.parse(localStorage.getItem("isLoggedIn"))) root.innerHTML = DashboardLayout(page);
 		else {
 			history.pushState(null, null, "/login");
 			root.innerHTML = Login();
