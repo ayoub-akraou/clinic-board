@@ -1,4 +1,7 @@
-export default function Login() {
+import router from "../router.js";
+import { hashPassword } from "../utilities.js";
+
+function Login() {
 	return `	
 	<style>
 			.container {
@@ -80,3 +83,25 @@ export default function Login() {
 		</main>
 		`;
 }
+
+function logic() {
+	const form = document.querySelector(".login");
+	const username = document.querySelector("#username");
+	const password = document.querySelector("#password");
+	console.log(form);
+
+	form.addEventListener("submit", async function (e) {
+		e.preventDefault();
+		const user = JSON.parse(localStorage.getItem("user"));
+		if (username.value.trim() == user.username && (await hashPassword(password.value)) === user.password) {
+			localStorage.setItem("isLoggedIn", JSON.stringify(true));
+			history.pushState(null, null, "/");
+			router();
+		}
+	});
+}
+
+export default () => {
+	setTimeout(logic, 0);
+	return Login();
+};
